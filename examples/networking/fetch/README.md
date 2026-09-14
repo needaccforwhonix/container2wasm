@@ -51,10 +51,10 @@ $ c2w debian-curl /tmp/out-js2/htdocs/out.wasm
 ```
 
 Then, put the WASM-compiled network stack (`c2w-net-proxy.wasm`) to `/tmp/out-js2/htdocs/`.
-The WASM binary can be found at the [release page](https://github.com/ktock/container2wasm/releases).
+The WASM binary can be found at the [release page](https://github.com/container2wasm/container2wasm/releases).
 
 ```
-$ wget -O /tmp/out-js2/htdocs/c2w-net-proxy.wasm https://github.com/ktock/container2wasm/releases/download/v0.5.0/c2w-net-proxy.wasm
+$ wget -O /tmp/out-js2/htdocs/c2w-net-proxy.wasm https://github.com/container2wasm/container2wasm/releases/download/v0.5.0/c2w-net-proxy.wasm
 ```
 
 > Alternatively, you can also build it as the following:
@@ -102,10 +102,10 @@ $ c2w nixos/nix /tmp/out-js2/htdocs/out.wasm
 ```
 
 Then, put the WASM-compiled network stack (`c2w-net-proxy.wasm`) to `/tmp/out-js2/htdocs/`.
-The WASM binary can be found at the [release page](https://github.com/ktock/container2wasm/releases).
+The WASM binary can be found at the [release page](https://github.com/container2wasm/container2wasm/releases).
 
 ```
-$ wget -O /tmp/out-js2/htdocs/c2w-net-proxy.wasm https://github.com/ktock/container2wasm/releases/download/v0.5.0/c2w-net-proxy.wasm
+$ wget -O /tmp/out-js2/htdocs/c2w-net-proxy.wasm https://github.com/container2wasm/container2wasm/releases/download/v0.5.0/c2w-net-proxy.wasm
 ```
 
 > Alternatively, you can also build it as the following:

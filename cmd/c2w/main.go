@@ -11,10 +11,10 @@ import (
 	"path/filepath"
 	"time"
 
+	vendor "github.com/container2wasm/container2wasm"
+	"github.com/container2wasm/container2wasm/version"
 	"github.com/containerd/containerd/archive"
 	"github.com/containerd/platforms"
-	vendor "github.com/ktock/container2wasm"
-	"github.com/ktock/container2wasm/version"
 	"github.com/urfave/cli"
 )
 
@@ -335,10 +335,10 @@ func prepareSourceImg(builderPath, imgName, tmpdir, targetarch string) error {
 		imageArch := inspectData[0]["Architecture"].(string)
 		imagePlatform, err := platforms.Parse(imageArch)
 		if err != nil {
-			log.Printf("failed to parse archtecture of image (%q): %v\n", imageArch, err)
+			log.Printf("failed to parse architecture of image (%q): %v\n", imageArch, err)
 			needsPull = true
 		} else if !mc.Match(imagePlatform) {
-			log.Printf("unexpected archtecture %v (target: %v). Try \"--target-arch\" when specifying an architecture.\n", imageArch, targetarch)
+			log.Printf("unexpected architecture %v (target: %v). Try \"--target-arch\" when specifying an architecture.\n", imageArch, targetarch)
 			needsPull = true
 		}
 	}
@@ -356,7 +356,12 @@ func prepareSourceImg(builderPath, imgName, tmpdir, targetarch string) error {
 			return fmt.Errorf("failed to pull the image. Try \"--target-arch\" when specifying an architecture: %w", err)
 		}
 	}
-	saveCmd := exec.Command(builderPath, "save", imgName)
+
+	saveArgs := []string{"save"}
+	if targetarch != "" {
+		saveArgs = append(saveArgs, "--platform=linux/"+targetarch)
+	}
+	saveCmd := exec.Command(builderPath, append(saveArgs, imgName)...)
 	outR, err := saveCmd.StdoutPipe()
 	if err != nil {
 		return err

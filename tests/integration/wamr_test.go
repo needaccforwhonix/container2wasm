@@ -8,7 +8,7 @@ import (
 
 	"gotest.tools/v3/assert"
 
-	"github.com/ktock/container2wasm/tests/integration/utils"
+	"github.com/container2wasm/container2wasm/tests/integration/utils"
 )
 
 func TestWamr(t *testing.T) {

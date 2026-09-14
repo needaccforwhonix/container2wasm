@@ -22,7 +22,7 @@ The WASM image converted from the container has `--net` flag that enables this n
 
 This doc shows examples for wasmtime and wazero.
 
-`c2w` and `c2w-net` are available on the [release page](https://github.com/ktock/container2wasm/releases).
+`c2w` and `c2w-net` are available on the [release page](https://github.com/container2wasm/container2wasm/releases).
 You can also build them using `make` command:
 
 ```

@@ -3,7 +3,7 @@ package integration
 import (
 	"testing"
 
-	"github.com/ktock/container2wasm/tests/integration/utils"
+	"github.com/container2wasm/container2wasm/tests/integration/utils"
 )
 
 func TestBrowsers(t *testing.T) {

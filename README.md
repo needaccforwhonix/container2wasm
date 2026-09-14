@@ -1,4 +1,4 @@
-[[⬇️**Download**]](https://github.com/ktock/container2wasm/releases)
+[[⬇️**Download**]](https://github.com/container2wasm/container2wasm/releases)
 [[📖 **Command reference**]](#command-reference)
 [[📚 **Additional Documents**]](#additional-resources)
 [[▶️**Demo**]](https://ktock.github.io/container2wasm-demo/)
@@ -7,6 +7,8 @@
 
 [![test workflow](https://github.com/container2wasm/container2wasm/actions/workflows/tests.yml/badge.svg)](https://github.com/container2wasm/container2wasm/actions/workflows/tests.yml?query=branch%3Amain++)
 [![FOSSA Status](https://app.fossa.com/api/projects/custom%2B162%2Fgithub.com%2Fcontainer2wasm%2Fcontainer2wasm.svg?type=shield&issueType=license)](https://app.fossa.com/projects/custom%2B162%2Fgithub.com%2Fcontainer2wasm%2Fcontainer2wasm?ref=badge_shield&issueType=license)
+
+<img src="./docs/images/logo.png" width="400">
 
 container2wasm is a container-to-wasm image converter that enables to run the container on WASM.
 
@@ -107,7 +109,7 @@ The following also puts the [network stack runnable on browser](./extras/c2w-net
 
 ```
 $ cp -R ./examples/wasi-browser/* /tmp/out-js2/ && chmod 755 /tmp/out-js2/htdocs
-$ wget -O /tmp/out-js2/htdocs/c2w-net-proxy.wasm https://github.com/ktock/container2wasm/releases/download/v0.5.0/c2w-net-proxy.wasm
+$ wget -O /tmp/out-js2/htdocs/c2w-net-proxy.wasm https://github.com/container2wasm/container2wasm/releases/download/v0.5.0/c2w-net-proxy.wasm
 $ docker run --rm -p 8080:80 \
          -v "/tmp/out-js2/htdocs:/usr/local/apache2/htdocs/:ro" \
          -v "/tmp/out-js2/xterm-pty.conf:/usr/local/apache2/conf/extra/xterm-pty.conf:ro" \
@@ -141,7 +143,7 @@ This example serves the image on `localhost:8080` using apache http server.
 
 ```console
 $ ( cd ./examples/emscripten/htdocs/ && npx webpack && cp -R index.html dist vendor/xterm.css /tmp/out-js/htdocs/ )
-$ wget -O /tmp/c2w-net-proxy.wasm https://github.com/ktock/container2wasm/releases/download/v0.5.0/c2w-net-proxy.wasm
+$ wget -O /tmp/c2w-net-proxy.wasm https://github.com/container2wasm/container2wasm/releases/download/v0.5.0/c2w-net-proxy.wasm
 $ cat /tmp/c2w-net-proxy.wasm | gzip > /tmp/out-js/htdocs/c2w-net-proxy.wasm.gzip
 $ cp ./examples/emscripten/xterm-pty.conf /tmp/out-js/
 $ docker run --rm -p 127.0.1:8080:80 \
@@ -172,7 +174,7 @@ You can install the converter command `c2w` using one of the following methods.
 
 ### Release binaries
 
-Binaries are available from https://github.com/ktock/container2wasm/releases
+Binaries are available from https://github.com/container2wasm/container2wasm/releases
 Extract the tarball and put the binary somewhere under `$PATH`.
 
 ### Building binaries using make
@@ -213,6 +215,43 @@ Options
 - `--external-bundle`: Do not embed container image to the Wasm image but mount it during runtime
 - `--help, -h`: show help
 - `--version, -v: `print the version
+
+### c2w-net
+
+Runs the user-space network stack used for networking support in converted WASM images.
+It can connect to a WASI runtime's network socket, listen for browser networking over WebSocket, or invoke a WASI image with `wasmtime`.
+
+Usage:
+
+- `c2w-net [options] socket-address`
+- `c2w-net --listen-ws [options] listen-address`
+- `c2w-net --invoke [options] wasm-file [wasm options] [COMMAND] [ARG...]`
+
+Arguments:
+
+- `socket-address`: TCP address of the WASI runtime network socket.
+- `listen-address`: address for the WebSocket listener, for example `localhost:8888`.
+- `wasm-file [wasm options] [COMMAND] [ARG...]`: WASM image and arguments passed to `wasmtime` when using `--invoke`.
+
+Options:
+
+- `--debug`: Enable debug print.
+- `--enable-tls`: Enable TLS for the WebSocket connection.
+- `--invoke`: Invoke the container with networking support using `wasmtime`.
+- `--listen-ws`: Listen on a WebSocket address specified by `listen-address`.
+- `--mac value`: MAC address assigned to the container (default: `"02:00:00:00:00:01"`).
+- `-p value`: Map a port between host and guest (`host:guest` or `ip:host:guest`). The `--mac` flag must be set correctly.
+- `--wasi-addr value`: IP address used to communicate between WASI and the network stack when using `--invoke` (default: `"127.0.0.1:1234"`).
+- `--wasmtime-cli-13`: Use the old wasmtime CLI syntax for version 13 or earlier.
+- `--ws-cert value`: TLS certificate for the WebSocket connection.
+- `--ws-key value`: TLS key for the WebSocket connection.
+
+Examples:
+
+```
+c2w-net --listen-ws localhost:8888
+c2w-net --invoke -p localhost:8000:80 /tmp/out/httpd.wasm --net=socket
+```
 
 ### Run-time flags for WASM image
 

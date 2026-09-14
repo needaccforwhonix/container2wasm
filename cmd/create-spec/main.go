@@ -11,6 +11,7 @@ import (
 	"path/filepath"
 	"sort"
 
+	inittype "github.com/container2wasm/container2wasm/cmd/init/types"
 	"github.com/containerd/containerd/archive"
 	"github.com/containerd/containerd/archive/compression"
 	ctdcontainers "github.com/containerd/containerd/containers"
@@ -18,7 +19,6 @@ import (
 	ctdnamespaces "github.com/containerd/containerd/namespaces"
 	ctdoci "github.com/containerd/containerd/oci"
 	"github.com/containerd/platforms"
-	inittype "github.com/ktock/container2wasm/cmd/init/types"
 	"github.com/moby/sys/user"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 	specs "github.com/opencontainers/runtime-spec/specs-go"

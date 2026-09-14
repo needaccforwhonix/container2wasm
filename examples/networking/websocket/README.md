@@ -21,7 +21,7 @@ The container running on browser can connect to that WebSocket and pass all pack
 
 ## Getting `c2w` and `c2w-net`
 
-`c2w` and `c2w-net` are available on the [release page](https://github.com/ktock/container2wasm/releases).
+`c2w` and `c2w-net` are available on the [release page](https://github.com/container2wasm/container2wasm/releases).
 You can also build them using `make` command:
 
 ```
